@@ -8,4 +8,4 @@ echo "<p>koneksi ke Database PDO berhasil di jalankan</p>";
 echo "<p>Test fungsi rupiah: " . rupiah(150000) . "</p>";
 ?>
 
-//Testing Saja 
+//Testing Saja hehehe
