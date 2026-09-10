@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $host       = 'localhost';
 $db_name    = 'db_kasir_php';
@@ -12,6 +13,8 @@ try {
     PDO::ATTR_EMULATE_PREPARES      => false,
 
     ]);
+
+    echo 'good db';
 } catch (PDOException $e) {
 
     die("Koneksi database gagal: " . $e->getMessage());
