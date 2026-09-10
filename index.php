@@ -1,7 +1,28 @@
 <?php 
-
-require_once 'config/database.php';
+include 'config/database.php';
 require_once 'includes/function.php';
+
+if(!isset($_SESSION['login'])) {
+    header("Location: login.php");
+}
+
+$url = isset($_GET['url']) ? rtrim(isset($_GET['url']), '/') : 'dashboard';
+
+$url_segments = explode('/', $url);
+$modul = $url_segments[0];
+
+// url list herry
+switch($modul){
+    case 'login':
+        include 'modules/auth/login.php';
+        break;
+
+    default:
+        echo "404 url not find king herry is angry";
+        break;
+}
+
+echo $_SESSION['name'];
 
 echo "<h1>Selamat Datang di Web Kasir!</h1>";
 echo "<p>koneksi ke Database PDO berhasil di jalankan</p>";
