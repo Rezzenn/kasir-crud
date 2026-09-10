@@ -1,5 +1,5 @@
 <?php 
-session_start();
+include 'config/database.php';
 require_once 'includes/function.php';
 
 if(!isset($_SESSION['login'])) {
@@ -21,6 +21,8 @@ switch($modul){
         echo "404 url not find king herry is angry";
         break;
 }
+
+echo $_SESSION['name'];
 
 echo "<h1>Selamat Datang di Web Kasir!</h1>";
 echo "<p>koneksi ke Database PDO berhasil di jalankan</p>";
