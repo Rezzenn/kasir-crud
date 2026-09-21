@@ -25,3 +25,5 @@ kasir-php/              <-- Root Folder Project di c:\laragon\www\
 ├── uploads/            <-- Folder untuk menyimpan foto produk yang diupload
 │
 └── index.php           <-- File utama/Gerbang masuk aplikasi
+
+reja keren
