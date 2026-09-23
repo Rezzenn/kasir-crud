@@ -1,25 +1,33 @@
 <?php
 include 'config/database.php';
 
+    if(isset($_SESSION['is_login'])){
+        header('location: index.php');
+    }
+
 
 if(isset($_POST['submit'])){
+    $name = $_POST['name'];
     $email = $_POST['email'];
+    $confirm_password = $_POST['confirm_password'];
     $password = $_POST['password'];
 
-    $q = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
-
-    $res = $db->query($q);
-
-    if(mysqli_num_rows($res) > 0){
-        $data = $res->fetch_assoc();
-        $_SESSION['name'] = $data['name'];
-        $_SESSION['user_id'] = $data['id'];
-        $_SESSION['email'] = $data['email'];
-        $_SESSION['is_login'] = true;
-        header('location: index.php');
-
+    if($password != $confirm_password) {
+        echo "pasword beda kontoll";
     } else {
-        echo "email atau password salah!!!!";
+        $hash_password = hash('sha256', $password);
+        $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hash_password')";
+
+        try{
+            if($db->query($sql) === TRUE) {
+                echo "sukses";
+                header('location: index.php');
+            } else {
+                echo "gagal";
+            }
+        } catch(mysqli_sql_exception) {
+            echo "gak boleh sama anunya";
+        }
     }
 }
 
@@ -36,11 +44,15 @@ if(isset($_POST['submit'])){
 </head>
 <body>
     <div>
-        <form action="login.php" method="post">
+        <form action="register.php" method="post">
+            <label for="name">name</label>
+            <input type="text" id="name" name="name"><br><br>
             <label for="email">email</label>
             <input type="text" id="email" name="email"><br><br>
             <label for="password">password</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password"><br><br>
+            <label for="confirm_password">konfirmaasi password</label>
+            <input type="password" id="confirm_password" name="confirm_password">
             <input type="submit" value="login" name="submit">
         </form>
     </div>
