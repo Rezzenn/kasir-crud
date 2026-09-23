@@ -31,7 +31,6 @@ if(isset($_POST['submit'])){
     }
 }
 
-    echo $_SESSION['name'];
 
 ?>
 
@@ -55,6 +54,7 @@ if(isset($_POST['submit'])){
             <input type="password" id="confirm_password" name="confirm_password">
             <input type="submit" value="login" name="submit">
         </form>
+        <a href="login.php">login</a>
     </div>
 </body>
 </html>
