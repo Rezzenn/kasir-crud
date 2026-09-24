@@ -21,7 +21,8 @@ if(isset($_POST['submit'])){
         try{
             if($db->query($sql) === TRUE) {
                 echo "sukses";
-                header('location: index.php');
+                header('location: login.php');
+                
             } else {
                 echo "gagal";
             }
