@@ -27,6 +27,9 @@ if(isset($_POST['logout'])) {
     <title>Crasir</title>
 </head>
 <body>
+
+    <a href="products.php">produk</a>
+
     <form action="index.php" method="post">
         <input type="submit" name="logout" value="logout">
     </form>

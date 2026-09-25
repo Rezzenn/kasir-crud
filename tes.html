@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tes Jalur Scanner Barcode</title>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 20px;">
+
+    <h2>Tes Input Emulator Barcode (Alternatif)</h2>
+    <p>Silakan jalankan emulator Anda di kotak bawah ini:</p>
+
+    <form id="formKasir" action="https://google.com" method="GET">
+        <input type="text" 
+               id="barcode" 
+               name="q" 
+               autofocus 
+               autocomplete="off" 
+               placeholder="Tembak barcode di sini..." 
+               style="padding: 12px; font-size: 18px; width: 300px;">
+    </form>
+
+    <script>
+        let timer;
+        const inputBarcode = document.getElementById('barcode');
+        const formKasir = document.getElementById('formKasir');
+
+        // Deteksi setiap ada angka masuk dari emulator
+        inputBarcode.addEventListener('input', function() {
+            clearTimeout(timer);
+            
+            // Tunggu 300 milidetik setelah ketikan berhenti, lalu submit otomatis
+            timer = setTimeout(function() {
+                if (inputBarcode.value.trim() !== "") {
+                    formKasir.submit();
+                }
+            }, 300); 
+        });
+    </script>
+
+</body>
+</html>

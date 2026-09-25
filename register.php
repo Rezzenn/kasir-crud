@@ -21,6 +21,7 @@ if(isset($_POST['submit'])){
         try{
             if($db->query($sql) === TRUE) {
                 echo "sukses";
+                unset($_POST);
                 header('location: login.php');
                 
             } else {
