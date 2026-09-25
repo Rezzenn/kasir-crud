@@ -25,6 +25,19 @@ if(isset($_POST['submit'])) {
     } catch(mysqli_sql_exception) {
         echo "barcode tidak bisa sama";
     }
+
+}
+
+//hapus
+if(isset($_POST['delete'])) {
+    $delete_id = $_POST['delete_id'];
+    $sql3 = "DELETE FROM products WHERE id = $delete_id";
+
+    if($db->query($sql3)) {
+        header("location: products.php");
+        echo "sukses menghapus";
+        exit();
+    }
 }
 
 ?>
@@ -58,7 +71,7 @@ if(isset($_POST['submit'])) {
 
     <table>
         <tr>
-            <td>id</td><td>barcode</td><td>name</td><td>price</td><td>stock</td><td>user</td><td>created at</td>
+            <td>id</td><td>barcode</td><td>name</td><td>price</td><td>stock</td><td>user</td><td>created at</td><td>actions</td>
         </tr>
         <?php
     
@@ -77,9 +90,10 @@ if(isset($_POST['submit'])) {
             $product_created_at = $products['created_at'];
             
             echo "<tr>";
-            echo "<td>" . $product_id . "</td><td>" . $product_barcode . "</td><td>" . $product_name . "</td><td>" . $product_price . "</td><td>" . $product_stock . "</td><td>" . $product_user_id . "</td><td>" . $product_created_at . "</td>";
+            echo "<td>" . $product_id . "</td><td>" . $product_barcode . "</td><td>" . $product_name . "</td><td>" . $product_price . "</td><td>" . $product_stock . "</td><td>" . $product_user_id . "</td><td>" . $product_created_at . "</td><td><input type='button' value='edit' name='edit'><form action='products.php' method='POST' onsubmit=`return confirm('seriusan?`)'><input type='hidden' name='delete_id' value='" . $product_id . "'></input><input type='submit' value='delete' name='delete'></form></td>";
             echo "</tr>";
 
+            
         }
     }
     
