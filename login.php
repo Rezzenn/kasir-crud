@@ -2,11 +2,17 @@
 include 'config/database.php';
 
 
+    if(isset($_SESSION['is_login'])){
+        header('location: index.php');
+    }
+
 if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $q = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+    $hash_password = hash('sha256', $password);
+
+    $q = "SELECT * FROM users WHERE email = '$email' AND password = '$hash_password'";
 
     $res = $db->query($q);
 
@@ -22,8 +28,6 @@ if(isset($_POST['submit'])){
         echo "email atau password salah!!!!";
     }
 }
-
-    echo $_SESSION['name'];
 
 ?>
 
@@ -43,6 +47,7 @@ if(isset($_POST['submit'])){
             <input type="password" id="password" name="password">
             <input type="submit" value="login" name="submit">
         </form>
+        <a href="register.php">register</a>
     </div>
 </body>
 </html>
