@@ -40,6 +40,11 @@ if(isset($_POST['delete'])) {
     }
 }
 
+//edit
+if(isset($_POST['edit'])) {
+    $edit_id = $_POST['edit_id'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +97,7 @@ if(isset($_POST['delete'])) {
                 $product_created_at = $products['created_at'];
                 
                 echo "<tr>";
-                echo "<td>" . $product_id . "</td><td>" . $product_barcode . "</td><td>" . $product_name . "</td><td>" . $product_price . "</td><td>" . $product_stock . "</td><td>" . $product_user_id . "</td><td>" . $product_created_at . "</td><td><input type='button' value='edit' name='edit'><form action='products.php' method='POST' onsubmit=`return confirm('seriusan?`)'><input type='hidden' name='delete_id' value='" . $product_id . "'></input><input type='submit' value='delete' name='delete'></form></td>";
+                echo "<td>" . $product_id . "</td><td>" . $product_barcode . "</td><td>" . $product_name . "</td><td>" . $product_price . "</td><td>" . $product_stock . "</td><td>" . $product_user_id . "</td><td>" . $product_created_at . "</td><td><form action='edit_product.php' method='GET'><input type='submit' value='edit'><input type='hidden' name='edit_id' value=" . $product_id . "></form><form action='products.php' method='POST' onsubmit=`return confirm('seriusan?`)'><input type='hidden' name='delete_id' value='" . $product_id . "'></input><input type='submit' value='delete' name='delete'></form></td>";
                 echo "</tr>";
 
                 
