@@ -35,10 +35,7 @@
 
 
 
-    $barcode = 2309823;
-    $name = 2309823;
-    $price = 2309823;
-    $stock = 2309823;
+
 
 ?>
 
@@ -53,17 +50,35 @@
     <br>
     <a href="products.php">back</a>
     <form action="edit_product.php" method="post">
-        <p><?php echo $edit_id; ?></p>
-        <label for="barcode">barcode</label>
-        <input type="number" name="barcode" id="barcode" value="<?php echo $barcode; ?>"><br>
-        <label for="name">nama</label>
-        <input type="text" name="name" id="name" value="<?php echo $name; ?>"><br>
-        <label for="price">harga</label>
-        <input type="number" name="price" id="price" value="<?php echo $price; ?>"><br>
-        <label for="stock">stok</label>
-        <input type="number" name="stock" id="stock" value="<?php echo $stock; ?>"><br>
-        <input type="hidden" name="edit_id" value="<?php echo $edit_id; ?>">
-        <input type="submit" value="submit" name="submit">
+        <?php
+
+            $sql2 = "SELECT * FROM products WHERE id = '$edit_id'";
+            $res = $db->query($sql2);
+
+            if($product = mysqli_num_rows($res) > 0){
+                while($product = $res->fetch_assoc()) {
+                    $barcode = $product['barcode'];
+                    $name = $product['name'];
+                    $price = $product['price'];
+                    $stock = $product['stock'];
+
+                    echo "<p>" . $edit_id . "</p>";
+                    echo "<label for='barcode'>barcode</label>";
+                    echo "<input type='number' name='barcode' id='barcode' value=" . $barcode . "><br>";
+                    echo "<label for='name'>nama</label>";
+                    echo "<input type='text' name='name' id='name' value=" . $name . "><br>";
+                    echo "<label for='price'>harga</label>";
+                    echo "<input type='number' name='price' id='price' value=" . $price . "><br>";
+                    echo "<label for='stock'>stok</label>";
+                    echo "<input type='number' name='stock' id='stock' value=" . $stock . "><br>";
+                    echo "<input type='hidden' name='edit_id' value=" . $edit_id . ">";
+                    echo "<input type='submit' value='submit' name='submit'>";
+                }
+            }
+        
+            
+            
+        ?>
     </form>
 </body>
 </html>
