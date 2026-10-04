@@ -19,7 +19,7 @@
 
     if(isset($_POST['enter'])){
         $barcode = $_POST['barcode'];
-        $sql = "SELECT id, name, price, stock WHERE barcode = '$barcode' LIMIT 1";
+        $sql = "SELECT id, name, price, stock FROM products WHERE barcode = '$barcode' LIMIT 1";
         $res = $db->query($sql);
 
         if(mysqli_num_rows($res) > 0){
@@ -30,14 +30,23 @@
                 $_SESSION['cart'][$id]['qty'] += 1;
             } else {
                 $_SESSION['cart'][$id] = [
+                    'barcode' => $barcode,
                     'name' => $product['name'],
                     'price' => $product['price'],
                     'qty' => 1
                 ];
             }
+            header("Location: index.php");
+            exit;
         } else {
         echo "produk tidak ditemukan";
         } 
+    }
+
+    if(isset($_POST['destroy_cart'])){
+        unset($_SESSION['cart']);
+        header("Location: index.php");
+        exit;
     }
 ?>
 
@@ -65,6 +74,9 @@
         <form action="index.php" method="post">
             <input type="number" name="barcode" id="barcode" autofocus autocomplete="off" placeholder="Enter Barcode here...">
             <input type="submit" value="enter" name="enter">
+        </form>
+        <form action="index.php" method="post">
+            <input type="submit" value="destroy cart" name="destroy_cart">
         </form>
         <table border="1" cellpadding="10" width="100%">
             <thead>
