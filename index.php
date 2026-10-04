@@ -30,6 +30,7 @@
                 $_SESSION['cart'][$id]['qty'] += 1;
             } else {
                 $_SESSION['cart'][$id] = [
+                    'id' => $product['id'],
                     'barcode' => $barcode,
                     'name' => $product['name'],
                     'price' => $product['price'],
@@ -45,6 +46,20 @@
 
     if(isset($_POST['destroy_cart'])){
         unset($_SESSION['cart']);
+        header("Location: index.php");
+        exit;
+    }
+
+    if(isset($_POST['set_qty'])){
+        $item_id = $_POST['item_id'];
+        $new_qty = $_POST['new_qty'];
+
+        if($new_qty <= 0){
+            unset($_SESSION['cart'][$item_id]);
+        } else {
+            $_SESSION['cart'][$item_id]['qty'] = $new_qty;
+        }
+
         header("Location: index.php");
         exit;
     }
@@ -100,7 +115,13 @@
                     <td><?php echo $item['barcode']; ?></td>
                     <td><?php echo $item['name']; ?></td>
                     <td><?php echo $item['price']; ?></td>
-                    <td><?php echo $item['qty']; ?></td>
+                    <td>
+                        <form action="index.php" method="post">
+                            <input type="number" name="new_qty" value="<?php echo $item['qty']; ?>">
+                            <input type="hidden" name="item_id" value="<?php echo $item['id']; ?>">
+                            <input type="submit" value="Set" name="set_qty">
+                        </form>
+                    </td>
                     <td><?php echo number_format($subtotal);  ?></td>
                 </tr>
                 <?php } ?>
